@@ -1,6 +1,9 @@
 <?php
 // routes/api.php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\YourController;
+use App\Http\Controllers\AuthController;
 
-Route::get('/example', [YourController::class, 'index']);
+Route::post('/login', [AuthController::class, 'login']);
+// test get route
+
+Route::get('/user',[AuthController::class, 'getUser'])->middleware('auth:sanctum');
