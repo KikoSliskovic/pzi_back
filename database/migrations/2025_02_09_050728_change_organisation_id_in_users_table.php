@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subjects', function (Blueprint $table) {
-            $table->id();
-            $table->string("subject_name")->default('Bez naziva');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('organisation_id')->change();
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('organisation_id')->change();
+        });
     }
 };

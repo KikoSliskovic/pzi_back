@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('classrooms', function (Blueprint $table) {
-            $table->foreignId('organisation_id')->nullable()->constrained();
+            $table->unsignedBigInteger('organisation_id');  // Ako je nullable, inače izbrišite 'nullable'
+            
+            // Definirajte strani ključ prema tablici 'organisations'
+            $table->foreign('organisation_id')
+                  ->references('id')
+                  ->on('organisations')
+                  ->onDelete('cascade');  // Možete koristiti 'cascade' ako želite brisanje učionica kada se organizacija obriše
         });
     }
 
