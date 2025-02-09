@@ -10,10 +10,6 @@
     <form method="post" action="{{route('lectures.store')}}">
         @csrf
         @method('post')
-        <div>
-            <label>Naziv kolegija: </label>
-            <input type="name" name="name" placeholder="Matematika 1" />
-        </div>
         <div class="form-group">
             <label for="classroom">Odabir učionice:</label>
             <select name="classroom_id" id="classroom" class="form-control" required>
@@ -33,15 +29,29 @@
                 @endforeach
             </select>
         </div>
+
+        <div class="form-group">
+            <label for="professor">Odabir profesora:</label>
+            <select name="professor_id" id="professor" class="form-control" required>
+                <option value="">Odaberite professora</option>
+                @foreach ($professors as $professor)
+                    <option value="{{ $professor->id }}">{{ $professor->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div>
+            <label>User_ID: </label>
+            <input type="name" name="name" placeholder="npr. 10" />
+        </div>
         
         <div>
             <input type="submit" value="Spremi" />
-        
+    
             <a href="{{route('lectures.index')}}">
                 <input type="button" value="Natrag" style="margin-top: 5px"/>
             </a>
         </div>
-
     </form>
 
     <div>

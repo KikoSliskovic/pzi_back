@@ -5,48 +5,39 @@ namespace App\Http\Controllers;
 use App\Models\Lecture;
 use App\Models\Classroom;
 use App\Models\Subject;
+use App\Models\Professor;
 use Illuminate\Http\Request;
 
 class LectureController extends Controller
 {
     public function index() {
-        $lectures = Lecture::with('classroom', 'subject')->get(); // Eager load the related classroom data
+        $lectures = Lecture::with('classroom', 'subject', 'professor')->get(); // Eager load the related classroom data
         return view('lectures.index', ['lectures' => $lectures]);
     }
 
     public function vraca_json()
     {
-        $lectures = Lecture::with('classroom', 'subject', 'korisnik')->get(); // Ovo će učitati podatke o učionici zajedno s predavanjima
+        $lectures = Lecture::with('classroom', 'subject', 'professor')->get(); // Ovo će učitati podatke o učionici zajedno s predavanjima
         return response()->json($lectures);
     }
 
     public function create() {
         $classrooms = Classroom::all();
         $subjects = Subject::all();
+        $professors = Professor::all();
 
-        return view('lectures.create', compact('classrooms', 'subjects'));
-    }
-
-
-    public function create2()
-    {
-        // Fetch all classrooms from the database
-        $classrooms = Classroom::all();
-        $subjects = Subject::all();
-
-        // Pass the classrooms to the view
-        return view('lectures.create2', compact('classrooms', 'subjects'));
+        return view('lectures.create', compact('classrooms', 'subjects', 'professors'));
     }
 
     public function store(Request $request) {
         $data = $request->validate([
             'subject_id' => 'required:lectures,subject_id',
             'classroom_id' => 'required|exists:classrooms,id',
-            'professor_id' => 'required:lectures,professor_id',
-            'user_id' => 'required:lectures,user_id',
-            'qr_code_id' => 'required:lectures,qr_code_id',
-            'date' => 'required:lectures,date',
-            'attendance' => 'required:lectures,attendance' ?? 0,
+            'professor_id' => 'required|exists:professors,id',
+            'user_id' => 'lectures,user_id',
+            'qr_code_id' => 'lectures,qr_code_id',
+            'date' => now(),
+            'attendance' => 'lectures,attendance' ?? 0,
         ]);
 
         $newLecture = Lecture::create($data);
@@ -61,12 +52,12 @@ class LectureController extends Controller
     public function update(Lecture $lecture, Request $request) {
         $data = $request->validate([
             'subject_id' => 'required:lectures,subject_id',
-            'classroom_id' => 'required:lectures,classroom_id',
-            'professor_id' => 'required:lectures,professor_id',
-            'user_id' => 'required:lectures,user_id',
-            'qr_code_id' => 'required:lectures,qr_code_id',
-            'date' => 'required:lectures,date',
-            'attendance' => 'required:lectures,attendance' ?? 0,
+            'classroom_id' => 'required|exists:classrooms,id',
+            'professor_id' => 'required|exists:professors,id',
+            'user_id' => 'lectures,user_id',
+            'qr_code_id' => 'lectures,qr_code_id',
+            'date' => now(),
+            'attendance' => 'lectures,attendance' ?? 0,
         ]);
         $lecture->update($data);
 

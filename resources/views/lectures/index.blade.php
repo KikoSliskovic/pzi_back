@@ -25,9 +25,9 @@
                     <td>{{$lecture -> id}}</td>
                     <td>{{$lecture->subject->name ?? 'Nema predmeta'}}</td>
                     <td>{{$lecture->classroom->name ?? 'Nema ucionice'}}</td>
-                    <td>{{$lecture->professor->name ?? 'Nema profesora'}}</td>
+                    <td>{{$lecture->professor_id ?? 'Nema profesora'}}</td>
                     <td>{{$lecture->user->name ?? 'Nema imena'}}</td>
-                    <td>{{$lecture->qr_code->qe_code ?? 'Nema QR-koda'}}</td>
+                    <td>{{$lecture->qr_code->qr_code ?? 'Nema QR-koda'}}</td>
                     <td>{{$lecture -> date}}</td>
                     <td>{{$lecture -> attendance}}</td>
                     

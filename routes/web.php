@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\KorisnikController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UJController;
 use App\Models\Korisnik;
@@ -55,4 +56,11 @@ Route::put('/subject/{subject}/update', [SubjectController::class, 'update'])->n
 Route::delete('/subject/{subject}/delete', [SubjectController::class, 'delete'])->name('subjects.delete');
 
 
+Route::get('/professor', [ProfessorController::class, 'index'])->name('professors.index');
+Route::get('/professor_json', [ProfessorController::class, 'vraca_json'])->name('professors.index');
+Route::get('/professor/create', [ProfessorController::class, 'create'])->name('professors.create');
+Route::post('/professor', [ProfessorController::class, 'store'])->name('professors.store');
+Route::get('/professor/{professor}/edit', [ProfessorController::class, 'edit'])->name('professors.edit');
+Route::put('/professor/{professor}/update', [ProfessorController::class, 'update'])->name('professors.update');
+Route::delete('/professor/{professor}/delete', [ProfessorController::class, 'delete'])->name('professors.delete');
 

@@ -27,4 +27,9 @@ class Lecture extends Model
     {
         return $this->belongsTo(Subject::class, 'subject_id');
     }
+
+    public function professor()
+    {
+        return $this->belongsTo(Professor::class, 'professor_id');
+    }
 }
