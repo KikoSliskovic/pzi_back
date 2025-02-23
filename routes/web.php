@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 #QR KOD
 Route::post('/generate-qr', [QRCodeController::class, 'generate']);
 Route::get('/qr-code/{value}', [QRCodeController::class, 'show'])->name('qr-code.show');
@@ -34,7 +36,7 @@ Route::delete('/classroom/{classroom}/delete', [ClassroomController::class, 'del
 Route::get('/lecture', [LectureController::class, 'index'])->name('lectures.index');
 Route::get('/lecture_json', [LectureController::class, 'vraca_json'])->name('lectures.index');
 Route::get('/lecture/create', [LectureController::class, 'create'])->name('lectures.create');
-Route::post('/lecture', [LectureController::class, 'store'])->name('lectures.store');
+Route::post('/lecture', [LectureController::class, 'store'])->name('lectures.store')->middleware(["auth","web"]);
 Route::get('/lecture/{lecture}/edit', [LectureController::class, 'edit'])->name('lectures.edit');
 Route::put('/lecture/{lecture}/update', [LectureController::class, 'update'])->name('lectures.update');
 Route::delete('/lecture/{lecture}/delete', [LectureController::class, 'delete'])->name('lectures.delete');

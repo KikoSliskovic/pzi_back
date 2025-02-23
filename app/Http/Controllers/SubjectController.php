@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
+
+    public function getSubjects(Request $request){
+        $data = Subject::all();
+        return response()->json($data);
+    }
+
     public function index() {
         $subjects = Subject::all();
         return view('subjects.index', ['subjects' => $subjects]);

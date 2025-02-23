@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
 {
+
+    public function getClassrooms(Request $request){
+        $data = Classroom::all();
+        return response()->json($data);
+    }
+
     public function index() {
         $classrooms = Classroom::all();
         return view('classrooms.index', ['classrooms' => $classrooms]);

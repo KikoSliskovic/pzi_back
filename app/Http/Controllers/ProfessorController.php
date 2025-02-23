@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ProfessorController extends Controller
 {
+    public function getProfessors(Request $request){
+        $data = Professor::all();
+        return response()->json($data);
+    }
+
     public function index() {
         $professors = Professor::all();
         return view('professors.index', ['professors' => $professors]);

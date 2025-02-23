@@ -15,6 +15,12 @@ use OTPHP\TOTP;
 
 class LectureController extends Controller
 {
+
+    public function getLectures(Request $request){
+        $lectures = Lecture::where("user_id",Auth::id())->with('classroom', 'subject', 'professor','user')->get(); 
+        return response()->json($lectures);
+    }
+
     public function index()
     {
         $lectures = Lecture::with('classroom', 'subject', 'professor')->get(); // Eager load the related classroom data
@@ -70,7 +76,7 @@ class LectureController extends Controller
 
         // Store attendance logic here (Example: Save to the database)
         Lecture::create([
-            'user_id' => 1,
+            'user_id' => Auth::id(),
             'classroom_id' => $decryptedData['classroom_id'],
             'subject_id' => $decryptedData['subject_id'],
             'professor_id' => $decryptedData['professor_id'],
