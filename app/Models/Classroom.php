@@ -13,6 +13,8 @@ class Classroom extends Model
 
     protected $fillable = [
         "name",
+        "organisation_id",
+
     ];
 
     public function organisation()
@@ -20,8 +22,8 @@ class Classroom extends Model
         return $this->belongsTo(UJOrganizacija::class, 'organisation_id');
     }
 
-    public function lecture()
-    {
-        return $this->belongsTo(Lecture::class);
-    }
+    // public function lecture()
+    // {
+    //     return $this->belongsTo(Lecture::class);
+    // }
 }

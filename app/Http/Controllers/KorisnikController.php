@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Korisnik;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class KorisnikController extends Controller
 {
     public function index() {
-        $korisnici = Korisnik::all();
+        $korisnici = User::all();
+        return response()->json($korisnici);
         return view('korisnici.index', ['korisnici' => $korisnici]);
     }
 
@@ -28,16 +29,16 @@ class KorisnikController extends Controller
             'organisation_id' => 'nullable:users,organisation_id',
         ]);
 
-        $newKorisnik = Korisnik::create($data);
+        $newKorisnik = User::create($data);
 
         return redirect(route('korisnici.index'));
     }
 
-    public function edit(Korisnik $korisnik) {
-        return view('korisnici.edit', ['korisnik' => $korisnik]);
+    public function edit(User $user) {
+        return view('korisnici.edit', ['user' => $user]);
     }
 
-    public function update(Korisnik $korisnik, Request $request) {
+    public function update(User $User, Request $request) {
         $data = $request->validate([
             'name' => 'required:users,name',
             'email' => 'required:users,email',
@@ -48,13 +49,13 @@ class KorisnikController extends Controller
             'academic_vocation' => 'nullable:users,academic_vocation',
             'organisation_id' => 'nullable:users,organisation_id',
         ]);
-        $korisnik->update($data);
+        $User->update($data);
 
         return redirect(route('korisnici.index'))->with('success', 'Korisnik je uspješno uređen!');
     }
 
-    public function delete(Korisnik $korisnik) {
-        $korisnik->delete();
+    public function delete(User $user) {
+        $user->delete();
 
         return redirect(route('korisnici.index'))->with('success', 'Korisnik je uspješno obrisan!');
     }

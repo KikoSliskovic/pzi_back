@@ -8,10 +8,18 @@ use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UJController;
 use App\Models\Korisnik;
+use App\Http\Controllers\QRCodeController;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+#QR KOD
+Route::post('/generate-qr', [QRCodeController::class, 'generate']);
+Route::get('/qr-code/{value}', [QRCodeController::class, 'show'])->name('qr-code.show');
+Route::get('/qr-code/{value}/url', [QRCodeController::class, 'showUrl'])->name('qr-code.showUrl');
+
 
 
 Route::get('/classroom', [ClassroomController::class, 'index'])->name('classrooms.index');
@@ -41,7 +49,7 @@ Route::delete('/korisnik/{korisnik}/delete', [KorisnikController::class, 'delete
 
 
 Route::get('/organisation', [UJController::class, 'index'])->name('organisations.index');
-Route::get('/organisation', [UJController::class, 'index2'])->name('organisations.index');
+// Route::get('/organisation', [UJController::class, 'index2'])->name('organisations.index');
 Route::get('/organisation/create', [UJController::class, 'create'])->name('organisations.create');
 Route::post('/organisation', [UJController::class, 'store'])->name('organisations.store');
 Route::delete('/organisation/{organisation}/delete', [UJController::class, 'delete'])->name('organisations.delete');
