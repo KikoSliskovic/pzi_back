@@ -42,6 +42,8 @@ use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
             $middleware->validateCsrfTokens(except: [
                 'http://pzi.test/*',
+                'http://pzi012025.studenti.sumit.ba/*',
+                'http://pzi012025.studenti.sumit.ba/backend/*'
             ]);
         })
         ->withExceptions(function (Exceptions $exceptions) {
