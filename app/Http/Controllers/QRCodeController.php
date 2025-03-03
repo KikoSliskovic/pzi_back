@@ -55,7 +55,7 @@ class QRCodeController extends Controller
         // Generate QR with new TOTP
         $qr = QrCode::format('png')
             ->size(400)
-            ->generate('http://pzi.test:3000/table?v=' . $value . '&otp=' . Crypt::encrypt($currentCode));
+            ->generate(config('app.front_url') . '/table?v=' . $value . '&otp=' . Crypt::encrypt($currentCode));
 
         return response($qr)->header('Content-Type', 'image/png');
     }
@@ -77,7 +77,7 @@ class QRCodeController extends Controller
         $totp = TOTP::createFromSecret($totpSecret);
         $currentCode = $totp->now();
 
-        return redirect('http://pzi.test:3000/table?v=' . $value . '&otp=' . Crypt::encrypt($currentCode));
+        return redirect(config('app.front_url') . 'table?v=' . $value . '&otp=' . Crypt::encrypt($currentCode));
 
         // Generate QR with new TOTP
         // $qr = QrCode::format('png')
